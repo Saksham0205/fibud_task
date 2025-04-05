@@ -474,12 +474,14 @@ class HomeScreen extends StatelessWidget {
   Widget _buildWorkoutGuide(
       String title, String description, String comments, String likes) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: const Color(0xFF252525),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
+        mainAxisSize:
+        MainAxisSize.min, // Ensure column takes minimum space needed
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -488,15 +490,20 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            description,
-            style: TextStyle(color: Colors.white70, fontSize: 12),
-            maxLines: 3,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          Spacer(),
+          SizedBox(height: 8),
+          Container(
+            height: 50, // Fixed height for description
+            child: Text(
+              description,
+              style: TextStyle(color: Colors.white70, fontSize: 12),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          SizedBox(height: 8), // Fixed spacing instead of Spacer
           if (comments.isNotEmpty && likes.isNotEmpty)
             Row(
               children: [
@@ -526,43 +533,56 @@ class HomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
+        mainAxisSize:
+        MainAxisSize.min, // Ensure column takes minimum space needed
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // User and rating in a more compact layout
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                user,
-                style: TextStyle(
-                  color: const Color(0xFF6E00FF),
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: Text(
+                  user,
+                  style: TextStyle(
+                    color: const Color(0xFF6E00FF),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12, // Smaller font size
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.star, color: Colors.yellow, size: 16),
-                  SizedBox(width: 4),
+                  Icon(Icons.star,
+                      color: Colors.yellow, size: 14), // Smaller icon
+                  SizedBox(width: 2),
                   Text(
                     rating,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 12), // Smaller font
                   ),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 12),
-          Expanded(
+          SizedBox(height: 6), // Reduced spacing further
+          Flexible(
             child: Text(
               reviewText,
-              style: TextStyle(color: Colors.white70, fontSize: 14),
+              style: TextStyle(
+                  color: Colors.white70, fontSize: 12), // Smaller font
               overflow: TextOverflow.ellipsis,
-              maxLines: 6,
+              maxLines: 3, // Reduced max lines
             ),
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 6), // Reduced spacing further
           Text(
             trainer,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontSize: 12), // Smaller font
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
